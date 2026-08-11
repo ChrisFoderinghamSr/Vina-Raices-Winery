@@ -31,12 +31,21 @@
 
 
 html {
+    width: 100%;
+
     scroll-behavior: smooth;
+
+    overflow-x: hidden;
 }
 
 
 body {
+    width: 100%;
+    min-width: 0;
+
     margin: 0;
+
+    overflow-x: hidden;
 
     background: var(--paper);
     color: var(--ink);
@@ -58,6 +67,7 @@ img {
     display: block;
 
     width: 100%;
+    max-width: 100%;
 }
 
 
@@ -118,8 +128,7 @@ h3 {
 /* Vina Raices Winery Container */
 
 .container {
-    width:
-        min(calc(100% - 2rem),
+    width: min(calc(100% - 2rem),
             var(--max-width));
 
     margin-inline: auto;
@@ -420,6 +429,7 @@ h3 {
             3.3rem);
 }
 
+
 .hero-copy {
     max-width: 620px;
 
@@ -427,6 +437,7 @@ h3 {
 
     color: #f1e9dc;
 }
+
 
 .hero-scroll {
     position: absolute;
@@ -443,6 +454,7 @@ h3 {
     letter-spacing: 0.15em;
 }
 
+
 /* Vina Raices Winery Buttons */
 
 .button-row {
@@ -454,6 +466,7 @@ h3 {
 
     margin-top: 1.8rem;
 }
+
 
 .button {
     display: inline-flex;
@@ -483,6 +496,7 @@ h3 {
         background 0.2s ease,
         color 0.2s ease;
 }
+
 
 .button:hover {
     transform: translateY(-2px);
@@ -636,7 +650,7 @@ h3 {
     display: grid;
 
     grid-template-columns:
-        repeat(5, 1fr);
+        repeat(5, minmax(0, 1fr));
 
     gap: 1rem;
 
@@ -645,6 +659,8 @@ h3 {
 
 
 .wine-card {
+    min-width: 0;
+
     border:
         1px solid var(--line);
 
@@ -694,14 +710,10 @@ h3 {
 /* Vina Raices Winery Complete Wine Bottle Images */
 
 .bottle-frame img {
-    width: min(60%, 80%),
-    max(80%, 100%);
-
-    height: min(60%, 80%),
-    max(80%, 100%);
-
+    width: 100%;
+    height: 160%;
+    
     object-fit: contain;
-
     object-position: center;
 }
 
@@ -773,6 +785,7 @@ h3 {
 .heritage-photo,
 .heritage-family {
     width: 130%;
+
     padding: 2.5rem;
 }
 
@@ -972,6 +985,7 @@ h3 {
 
 
 .vineyard-images img {
+    width: 100%;
     height: 100%;
 
     min-height: 210px;
@@ -1295,27 +1309,6 @@ address {
     color: var(--burgundy-900);
 }
 
-/* Vina Raices Winery Responsive Foundation */
-
-html {
-    width: 100%;
-    overflow-x: hidden;
-}
-
-body {
-    width: 100%;
-    min-width: 0;
-    overflow-x: hidden;
-}
-
-img {
-    max-width: 100%;
-}
-
-.container {
-    width: min(calc(100% - 2rem), var(--max-width));
-}
-
 
 /* Vina Raices Winery Large Tablet Layout */
 
@@ -1326,11 +1319,14 @@ img {
     }
 
     .wine-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns:
+            repeat(3,
+                minmax(0, 1fr));
     }
 
     .heritage-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
 
         gap: 2rem;
     }
@@ -1354,7 +1350,8 @@ img {
     }
 
     .visit-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
     }
 
     .hours {
@@ -1369,7 +1366,11 @@ img {
 @media (max-width: 820px) {
 
     .site-header {
-        background: rgba(28, 8, 13, 0.92);
+        background:
+            rgba(28,
+                8,
+                13,
+                0.92);
     }
 
     .nav-wrap {
@@ -1399,7 +1400,8 @@ img {
 
         background: var(--burgundy-950);
 
-        border: 1px solid var(--line);
+        border:
+            1px solid var(--line);
 
         box-shadow: var(--shadow);
     }
@@ -1425,21 +1427,28 @@ img {
     .hero h1 {
         max-width: 700px;
 
-        font-size: clamp(3rem, 8vw, 5.2rem);
+        font-size:
+            clamp(3rem,
+                8vw,
+                5.2rem);
     }
 
     .split-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
 
         gap: 2rem;
     }
 
     .wine-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr));
     }
 
     .heritage-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
 
         gap: 2rem;
     }
@@ -1469,7 +1478,8 @@ img {
     }
 
     .visit-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
     }
 
     .hours {
@@ -1477,13 +1487,15 @@ img {
     }
 
     .newsletter-inner {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
 
         gap: 2rem;
     }
 
     .footer-grid {
-        grid-template-columns: 1.2fr 0.8fr;
+        grid-template-columns:
+            1.2fr 0.8fr;
 
         gap: 2rem;
     }
@@ -1500,7 +1512,8 @@ img {
     }
 
     .brand {
-        max-width: calc(100% - 60px);
+        max-width:
+            calc(100% - 60px);
     }
 
     .brand strong {
@@ -1524,13 +1537,19 @@ img {
     .hero h1 {
         max-width: 100%;
 
-        font-size: clamp(2.7rem, 11vw, 4rem);
+        font-size:
+            clamp(2.7rem,
+                11vw,
+                4rem);
 
         line-height: 1;
     }
 
     .script-line {
-        font-size: clamp(1.5rem, 7vw, 2.2rem);
+        font-size:
+            clamp(1.5rem,
+                7vw,
+                2.2rem);
     }
 
     .hero-copy {
@@ -1578,7 +1597,8 @@ img {
     }
 
     .wine-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
 
         gap: 0.8rem;
     }
@@ -1623,7 +1643,10 @@ img {
     .heritage-copy h2 {
         max-width: 100%;
 
-        font-size: clamp(2.5rem, 10vw, 3.5rem);
+        font-size:
+            clamp(2.5rem,
+                10vw,
+                3.5rem);
     }
 
     .heritage-copy p:not(.eyebrow):not(.signature) {
@@ -1641,7 +1664,8 @@ img {
     }
 
     .vineyard-images {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
     }
 
     .vineyard-images figure:first-child {
@@ -1671,7 +1695,8 @@ img {
     }
 
     .footer-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
 
         gap: 2rem;
     }
@@ -1709,13 +1734,19 @@ img {
     }
 
     .hero h1 {
-        font-size: clamp(2.4rem, 12vw, 3.5rem);
+        font-size:
+            clamp(2.4rem,
+                12vw,
+                3.5rem);
 
         line-height: 1;
     }
 
     .script-line {
-        font-size: clamp(1.4rem, 7vw, 1.9rem);
+        font-size:
+            clamp(1.4rem,
+                7vw,
+                1.9rem);
     }
 
     .hero-copy {
@@ -1754,7 +1785,10 @@ img {
     }
 
     .heritage-copy h2 {
-        font-size: clamp(2.35rem, 11vw, 3rem);
+        font-size:
+            clamp(2.35rem,
+                11vw,
+                3rem);
     }
 
     .vineyard-images {
@@ -1793,7 +1827,8 @@ img {
     }
 
     .wine-modal {
-        width: calc(100% - 1.25rem);
+        width:
+            calc(100% - 1.25rem);
 
         max-height: 90vh;
 
@@ -1837,7 +1872,10 @@ img {
     }
 
     .hero h1 {
-        font-size: clamp(2.15rem, 11.5vw, 3rem);
+        font-size:
+            clamp(2.15rem,
+                11.5vw,
+                3rem);
     }
 
     .script-line {
@@ -1878,7 +1916,10 @@ img {
     }
 
     .hero h1 {
-        font-size: clamp(2.4rem, 7vw, 4rem);
+        font-size:
+            clamp(2.4rem,
+                7vw,
+                4rem);
     }
 
     .hero-copy {
@@ -1900,7 +1941,9 @@ img {
     *::before,
     *::after {
         animation-duration: 0.01ms !important;
+
         animation-iteration-count: 1 !important;
+
         transition-duration: 0.01ms !important;
     }
 

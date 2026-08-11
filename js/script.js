@@ -28,7 +28,7 @@ menuToggle?.addEventListener(
         );
 
 
-        primaryNav.classList.toggle(
+        primaryNav?.classList.toggle(
             "open",
             !isExpanded
         );
@@ -60,6 +60,36 @@ primaryNav?.querySelectorAll(
 
             }
         );
+
+    }
+);
+
+
+/* Vina Raices Winery Mobile Navigation Escape Handling */
+
+document.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (
+            event.key === "Escape" &&
+            primaryNav?.classList.contains("open")
+        ) {
+
+            menuToggle?.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+
+            primaryNav.classList.remove(
+                "open"
+            );
+
+
+            menuToggle?.focus();
+
+        }
 
     }
 );
@@ -125,21 +155,36 @@ document.querySelectorAll(
                     button.dataset.wine;
 
 
-                modalTitle.textContent =
-                    wineName;
-
-
-                modalCopy.textContent =
+                const wineDescription =
                     wineProfiles[wineName] ||
                     "Fictional wine profile.";
 
 
                 if (
+                    modalTitle &&
+                    modalCopy
+                ) {
+
+                    modalTitle.textContent =
+                        wineName || "Wine";
+
+
+                    modalCopy.textContent =
+                        wineDescription;
+
+                }
+
+
+                if (
+                    wineModal &&
                     typeof wineModal.showModal ===
                     "function"
                 ) {
 
                     wineModal.showModal();
+
+
+                    modalClose?.focus();
 
                 }
 
@@ -156,7 +201,7 @@ modalClose?.addEventListener(
     "click",
     () => {
 
-        wineModal.close();
+        wineModal?.close();
 
     }
 );
@@ -189,6 +234,49 @@ wineModal?.addEventListener(
 );
 
 
+/* Vina Raices Winery Wine Profile Dialog Close Handling */
+
+wineModal?.addEventListener(
+    "close",
+    () => {
+
+        const activeWineButton =
+            document.querySelector(
+                `.wine-detail[data-wine="${wineModal.dataset.lastWine}"]`
+            );
+
+
+        activeWineButton?.focus();
+
+    }
+);
+
+
+/* Vina Raices Winery Wine Profile Focus Tracking */
+
+document.querySelectorAll(
+    ".wine-detail"
+).forEach(
+    (button) => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                if (wineModal) {
+
+                    wineModal.dataset.lastWine =
+                        button.dataset.wine || "";
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
 /* Vina Raices Winery Newsletter Form */
 
 const signupForm = document.querySelector(
@@ -207,26 +295,38 @@ signupForm?.addEventListener(
         event.preventDefault();
 
 
-        const formData =
-            new FormData(signupForm);
+        const emailInput =
+            signupForm.querySelector(
+                "#email"
+            );
 
 
-        const email =
-            formData.get("email");
+        if (
+            !emailInput ||
+            !emailInput.checkValidity()
+        ) {
+
+            if (formStatus) {
+
+                formStatus.textContent =
+                    "Please enter a valid email address.";
+
+            }
 
 
-        if (!email) {
-
-            formStatus.textContent =
-                "Please enter a valid email address.";
+            emailInput?.focus();
 
             return;
 
         }
 
 
-        formStatus.textContent =
-            "Thank you. Welcome to the Viña Raíces family.";
+        if (formStatus) {
+
+            formStatus.textContent =
+                "Thank you. Welcome to the Viña Raíces family.";
+
+        }
 
 
         signupForm.reset();
