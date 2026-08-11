@@ -1,19 +1,42 @@
+# Vina Raices Winery Git Ignore Configuration
+
 # Operating System Files
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# VS Code
-.vscode/*
-!.vscode/extensions.json
-!.vscode/settings.json
+# Visual Studio Code
+.vscode/
 
 # Logs
 *.log
 
-# Environment Variables
+# Node Dependencies
+node_modules/
+
+# Environment Files
 .env
 .env.*
+!.env.example
+
+# Build Output
+dist/
+build/
 
 # Temporary Files
 *.tmp
 *.temp
+
+# Editor Temporary Files
+*.swp
+*.swo
+
+# Coverage
+coverage/
+
+# Cache
+.cache/
+.parcel-cache/
+
+# Local Development Files
+*.local
