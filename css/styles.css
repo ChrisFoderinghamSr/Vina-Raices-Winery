@@ -56,6 +56,7 @@ body {
 
 img {
     display: block;
+
     width: 100%;
 }
 
@@ -94,6 +95,7 @@ h3 {
         serif;
 
     line-height: 1.08;
+
     font-weight: 500;
 }
 
@@ -116,7 +118,8 @@ h3 {
 /* Vina Raices Winery Container */
 
 .container {
-    width: min(calc(100% - 2rem),
+    width:
+        min(calc(100% - 2rem),
             var(--max-width));
 
     margin-inline: auto;
@@ -170,6 +173,7 @@ h3 {
 
 :focus-visible {
     outline: 3px solid var(--gold-light);
+
     outline-offset: 4px;
 }
 
@@ -198,6 +202,7 @@ h3 {
     display: flex;
 
     align-items: center;
+
     justify-content: space-between;
 
     gap: 1rem;
@@ -415,7 +420,6 @@ h3 {
             3.3rem);
 }
 
-
 .hero-copy {
     max-width: 620px;
 
@@ -423,7 +427,6 @@ h3 {
 
     color: #f1e9dc;
 }
-
 
 .hero-scroll {
     position: absolute;
@@ -440,7 +443,6 @@ h3 {
     letter-spacing: 0.15em;
 }
 
-
 /* Vina Raices Winery Buttons */
 
 .button-row {
@@ -453,11 +455,11 @@ h3 {
     margin-top: 1.8rem;
 }
 
-
 .button {
     display: inline-flex;
 
     justify-content: center;
+
     align-items: center;
 
     min-height: 46px;
@@ -481,7 +483,6 @@ h3 {
         background 0.2s ease,
         color 0.2s ease;
 }
-
 
 .button:hover {
     transform: translateY(-2px);
@@ -635,8 +636,7 @@ h3 {
     display: grid;
 
     grid-template-columns:
-        repeat(5,
-            1fr);
+        repeat(5, 1fr);
 
     gap: 1rem;
 
@@ -669,29 +669,40 @@ h3 {
 }
 
 
+/* Vina Raices Winery Wine Bottle Container */
+
 .bottle-frame {
     aspect-ratio: 0.72;
 
-    display: grid;
+    display: flex;
 
-    place-items: center;
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    margin-bottom: 1rem;
 
     background:
         radial-gradient(circle,
             #4d252d,
             #230c12 70%);
-
-    overflow: hidden;
-
-    margin-bottom: 1rem;
 }
 
 
-.bottle-frame img {
-    width: 100%;
-    height: 100%;
+/* Vina Raices Winery Complete Wine Bottle Images */
 
-    object-fit: cover;
+.bottle-frame img {
+    width: min(60%, 80%),
+    max(80%, 100%);
+
+    height: min(60%, 80%),
+    max(80%, 100%);
+
+    object-fit: contain;
+
+    object-position: center;
 }
 
 
@@ -738,7 +749,7 @@ h3 {
 /* Vina Raices Winery Heritage Section */
 
 .heritage {
-    padding: 7rem 0;
+    padding: 9rem 0;
 }
 
 
@@ -746,28 +757,127 @@ h3 {
     display: grid;
 
     grid-template-columns:
-        1fr 1.1fr 0.85fr;
+        minmax(0, 1fr) minmax(360px, 1.15fr) minmax(0, 1fr);
 
-    gap: 2rem;
+    gap:
+        clamp(2rem,
+            4vw,
+            5rem);
 
     align-items: center;
 }
 
 
-.heritage-photo img,
-.heritage-family img {
-    aspect-ratio: 1.2;
+/* Vina Raices Winery Heritage Photography */
 
-    object-fit: cover;
+.heritage-photo,
+.heritage-family {
+    width: 130%;
+    padding: 2.5rem;
 }
 
 
-.heritage-copy p {
+.heritage-photo img,
+.heritage-family img {
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    box-shadow: var(--shadow);
+}
+
+
+.heritage-family figcaption {
+    margin-top: 0.5rem;
+
+    color: var(--muted);
+
+    font-size: 0.72rem;
+
+    text-align: center;
+}
+
+
+/* Vina Raices Winery Heritage Story */
+
+.heritage-copy {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    max-width: 560px;
+
+    margin-inline: auto;
+
+    text-align: center;
+}
+
+
+.heritage-copy .eyebrow {
+    margin-bottom: 1rem;
+}
+
+
+.heritage-copy h2 {
+    max-width: 520px;
+
+    margin-inline: auto;
+
+    font-size:
+        clamp(2.5rem,
+            4vw,
+            4.2rem);
+
+    line-height: 1.02;
+}
+
+
+.heritage-copy p:not(.eyebrow):not(.signature) {
+    max-width: 500px;
+
+    margin-inline: auto;
+
     color: var(--muted);
 }
 
 
+.heritage-copy::before,
+.heritage-copy::after {
+    content: "◆";
+
+    display: block;
+
+    color: var(--gold);
+
+    font-size: 0.45rem;
+
+    letter-spacing: 0.3em;
+}
+
+
+.heritage-copy::before {
+    margin-bottom: 1rem;
+}
+
+
+.heritage-copy::after {
+    margin-top: 0.8rem;
+}
+
+
+/* Vina Raices Winery Heritage Signature */
+
 .signature {
+    margin-top: 1rem;
+
     color: var(--burgundy-700) !important;
 
     font-family:
@@ -775,7 +885,14 @@ h3 {
         "Segoe Script",
         cursive;
 
-    font-size: 1.6rem;
+    font-size:
+        clamp(1.5rem,
+            2.5vw,
+            2rem);
+
+    line-height: 1.3;
+
+    text-align: center;
 }
 
 
@@ -1190,8 +1307,7 @@ address {
 
     .wine-grid {
         grid-template-columns:
-            repeat(3,
-                1fr);
+            repeat(3, 1fr);
     }
 
 
@@ -1306,8 +1422,12 @@ address {
     }
 
 
+    /* Vina Raices Winery Mobile Heritage Layout */
+
     .heritage-grid {
         grid-template-columns: 1fr;
+
+        gap: 2.5rem;
     }
 
 
@@ -1315,6 +1435,26 @@ address {
         grid-column: auto;
 
         grid-row: auto;
+
+        max-width: 600px;
+
+        margin-inline: auto;
+    }
+
+
+    .heritage-photo,
+    .heritage-family {
+        max-width: 520px;
+
+        margin-inline: auto;
+    }
+
+
+    .heritage-copy h2 {
+        font-size:
+            clamp(2.5rem,
+                10vw,
+                3.5rem);
     }
 
 
@@ -1382,6 +1522,28 @@ address {
 
     .vineyard-images figure:first-child {
         grid-row: auto;
+    }
+
+
+    /* Vina Raices Winery Small Screen Heritage */
+
+    .heritage {
+        padding: 5rem 0;
+    }
+
+
+    .heritage-copy h2 {
+        font-size: 2.7rem;
+    }
+
+
+    .heritage-copy p:not(.eyebrow):not(.signature) {
+        max-width: 100%;
+    }
+
+
+    .signature {
+        font-size: 1.5rem;
     }
 
 }
