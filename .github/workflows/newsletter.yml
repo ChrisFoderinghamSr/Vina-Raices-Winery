@@ -1,0 +1,26 @@
+name: Winery release
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node --test newsletter.test.mjs
+      - run: docker build -t winery-test .
+      - name: Exercise signup and persistence across container replacement
+        run: |
+          set -euo pipefail
+          docker volume create winery-qa
+          trap 'docker rm -f winery-qa 2>/dev/null || true; docker volume rm winery-qa' EXIT
+          for attempt in 1 2; do
+            docker run --rm -d --name winery-qa -p 127.0.0.1:8080:8080 -v winery-qa:/data winery-test
+            curl --retry 10 --retry-connrefused --retry-delay 1 -fsS http://localhost:8080/ > /dev/null
+            curl -fsS http://localhost:8080/api/newsletter -H 'Content-Type: application/json' -d '{"email":"qa@example.test"}' | grep -q 'Subscription received.'
+            docker exec winery-qa node -e "const db=new (require('node:sqlite').DatabaseSync)(process.env.NEWSLETTER_DB); if(db.prepare('SELECT count(*) AS n FROM subscribers').get().n!==1) process.exit(1)"
+            docker stop winery-qa
+          done
