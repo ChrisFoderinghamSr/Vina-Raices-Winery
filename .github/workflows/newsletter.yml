@@ -24,3 +24,11 @@ jobs:
             docker exec winery-qa node -e "const db=new (require('node:sqlite').DatabaseSync)(process.env.NEWSLETTER_DB); if(db.prepare('SELECT count(*) AS n FROM subscribers').get().n!==1) process.exit(1)"
             docker stop winery-qa
           done
+      - name: Exercise the mobile navigation, wine dialogs and signup in Chromium
+        run: |
+          npm install --no-save --package-lock=false playwright@1.56.1
+          npx playwright install --with-deps chromium
+          NEWSLETTER_DB="$RUNNER_TEMP/browser.sqlite" node server.mjs &
+          trap 'kill $! 2>/dev/null || true' EXIT
+          curl --retry 8 --retry-connrefused --retry-delay 1 -fsS http://localhost:8080/ > /dev/null
+          node browser-smoke.mjs
