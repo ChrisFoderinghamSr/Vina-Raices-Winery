@@ -40,3 +40,4 @@ coverage/
 
 # Local Development Files
 *.local
+newsletter.sqlite*

@@ -298,3 +298,6 @@ Example:
 <a class="skip-link" href="#main-content">
     Skip to content
 </a>
+## Newsletter service
+
+Run `node server.mjs` with Node 24 or later and open http://localhost:8080. Set HOST and PORT for your host and NEWSLETTER_DB to a durable SQLite file outside the public assets. A static-only deployment needs a same-origin proxy for POST /api/newsletter. The service records signups. Mailing campaigns require a separate delivery service.

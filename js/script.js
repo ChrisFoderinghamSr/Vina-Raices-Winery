@@ -277,59 +277,30 @@ document.querySelectorAll(
 );
 
 
-/* Vina Raices Winery Newsletter Form */
+/* Persist signup before confirming it to the visitor. */
+const signupForm = document.querySelector("#signup-form");
+const formStatus = document.querySelector("#form-status");
 
-const signupForm = document.querySelector(
-    "#signup-form"
-);
-
-const formStatus = document.querySelector(
-    "#form-status"
-);
-
-
-signupForm?.addEventListener(
-    "submit",
-    (event) => {
-
-        event.preventDefault();
-
-
-        const emailInput =
-            signupForm.querySelector(
-                "#email"
-            );
-
-
-        if (
-            !emailInput ||
-            !emailInput.checkValidity()
-        ) {
-
-            if (formStatus) {
-
-                formStatus.textContent =
-                    "Please enter a valid email address.";
-
-            }
-
-
-            emailInput?.focus();
-
-            return;
-
-        }
-
-
-        if (formStatus) {
-
-            formStatus.textContent =
-                "Thank you. Welcome to the Viña Raíces family.";
-
-        }
-
-
+signupForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!signupForm.reportValidity()) return;
+    const button = signupForm.querySelector("button[type=submit]");
+    if (button.disabled) return;
+    button.disabled = true;
+    formStatus.textContent = "Submitting…";
+    try {
+        const result = await fetch("/api/newsletter", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: signupForm.elements.email.value }),
+        });
+        if (!result.ok || !(result.headers.get("content-type") || "").startsWith("text/plain") ||
+            await result.text() !== "Subscription received.") throw new Error();
+        formStatus.textContent = "Thank you for joining our mailing list.";
         signupForm.reset();
-
+    } catch {
+        formStatus.textContent = "We could not save your subscription. Please try again later.";
+    } finally {
+        button.disabled = false;
     }
-);
+});
