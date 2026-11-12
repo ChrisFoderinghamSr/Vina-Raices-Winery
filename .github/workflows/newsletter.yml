@@ -19,7 +19,7 @@ jobs:
           trap 'docker rm -f winery-qa 2>/dev/null || true; docker volume rm winery-qa' EXIT
           for attempt in 1 2; do
             docker run --rm -d --name winery-qa -p 127.0.0.1:8080:8080 -v winery-qa:/data winery-test
-            curl --retry 10 --retry-connrefused --retry-delay 1 -fsS http://localhost:8080/ > /dev/null
+            curl --retry 10 --retry-all-errors --retry-delay 1 -fsS http://localhost:8080/ > /dev/null
             curl -fsS http://localhost:8080/api/newsletter -H 'Content-Type: application/json' -d '{"email":"qa@example.test"}' | grep -q 'Subscription received.'
             docker exec winery-qa node -e "const db=new (require('node:sqlite').DatabaseSync)(process.env.NEWSLETTER_DB); if(db.prepare('SELECT count(*) AS n FROM subscribers').get().n!==1) process.exit(1)"
             docker stop winery-qa
@@ -30,5 +30,5 @@ jobs:
           npx playwright install --with-deps chromium
           NEWSLETTER_DB="$RUNNER_TEMP/browser.sqlite" node server.mjs &
           trap 'kill $! 2>/dev/null || true' EXIT
-          curl --retry 8 --retry-connrefused --retry-delay 1 -fsS http://localhost:8080/ > /dev/null
+          curl --retry 8 --retry-all-errors --retry-delay 1 -fsS http://localhost:8080/ > /dev/null
           node browser-smoke.mjs
